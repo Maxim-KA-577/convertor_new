@@ -9,7 +9,7 @@ def validate_input(char):
     return char.isdigit()
 
 
-def converting(money_1, currency_1):    
+def converting(money_1, currency_1, result):
     money = money_1.get()
     currency = currency_1.get()
     
@@ -20,9 +20,8 @@ def converting(money_1, currency_1):
         cost = test['data']
         cost = cost['usd']
         cost = round(1/cost, 2)
-
-        answer = int(money)//cost
-        answer = int(answer)
+        answer = float(money)/cost
+        answer = round(answer, 2)
 
         resp = requests.get('http://127.0.0.1:5000/eur')
         resp = resp.json()
@@ -31,18 +30,19 @@ def converting(money_1, currency_1):
         lst = resp['data']
         lst2 = []
         for i in lst:
-            lst2.append(int(1/i))
+            lst2.append(float(1/i))
 
         lst1 = resp['dates']
 
+
+
+        txt = "у вас получилось: " + str(answer) + " долларов"
+        result.config(text=txt)
+
+        result.place(x = 150, y = 200)
         plt.plot(lst1, lst2)
         plt.show()
 
-        txt = "у вас получилось: " + str(answer) + " долларов"
-        result = tk.Label(window, text = txt, font=("Arial", 10))
-
-        result.place(x = 150, y = 200)
-        
     elif currency == "EUR":
         with open("ExchangeRateApp\\serv\\latest_rates.json", "r") as file:
             test = eval(file.read())
@@ -51,8 +51,8 @@ def converting(money_1, currency_1):
         cost = cost['eur']
         cost = round(1/cost, 2)
 
-        answer = int(money)//cost
-        answer = int(answer)
+        answer = float(money)/cost
+        answer = round(answer, 2)
 
         resp = requests.get('http://127.0.0.1:5000/eur')
         resp = resp.json()
@@ -61,28 +61,29 @@ def converting(money_1, currency_1):
         lst = resp['data']
         lst2 = []
         for i in lst:
-            lst2.append(int(1/i))
+            lst2.append(float(1/i))
 
         lst1 = resp['dates']
 
-        plt.plot(lst1, lst2)
-        plt.show()
+
 
         txt = "у вас получилось: " + str(answer) + " евро"
-        result = tk.Label(window, text = txt, font=("Arial", 10))
+        result.config(text=txt)
 
         result.place(x = 150, y = 200)
+        plt.plot(lst1, lst2)
+        plt.show()
 
     elif currency == "KZT":
         with open("ExchangeRateApp\\serv\\latest_rates.json", "r") as file:
             test = eval(file.read())
 
         cost = test['data']
-        cost = cost['usd']
+        cost = cost['kzt']
         cost = round(1/cost, 2)
 
-        answer = int(money)//cost
-        answer = int(answer)
+        answer =float(money)/cost
+        answer = round(answer, 2)
 
         resp = requests.get('http://127.0.0.1:5000/eur')
         resp = resp.json()
@@ -91,28 +92,30 @@ def converting(money_1, currency_1):
         lst = resp['data']
         lst2 = []
         for i in lst:
-            lst2.append(int(1/i))
+            lst2.append(float(1/i))
 
         lst1 = resp['dates']
 
-        plt.plot(lst1, lst2)
-        plt.show()
+
+
 
         txt = "у вас получилось: " + str(answer) + " тенге"
-        result = tk.Label(window, text = txt, font=("Arial", 10))
+        result.config(text=txt)
 
         result.place(x = 150, y = 200)
+        plt.plot(lst1, lst2)
+        plt.show()
 
     elif currency == "CNY":
         with open("ExchangeRateApp\\serv\\latest_rates.json", "r") as file:
             test = eval(file.read())
 
         cost = test['data']
-        cost = cost['usd']
+        cost = cost['cny']
         cost = round(1/cost, 2)
 
-        answer = int(money)//cost
-        answer = int(answer)
+        answer = float(money)/cost
+        answer = round(answer, 2)
 
         resp = requests.get('http://127.0.0.1:5000/eur')
         resp = resp.json()
@@ -121,17 +124,18 @@ def converting(money_1, currency_1):
         lst = resp['data']
         lst2 = []
         for i in lst:
-            lst2.append(int(1/i))
+            lst2.append(float(1/i))
 
         lst1 = resp['dates']
 
-        plt.plot(lst1, lst2)
-        plt.show()
+
 
         txt = "у вас получилось: " + str(answer) + " юаней"
-        result = tk.Label(window, text = txt, font=("Arial", 10))
+        result.config(text=txt)
 
         result.place(x = 150, y = 200)
+        plt.plot(lst1, lst2)
+        plt.show()
 
     
 window = Tk()
@@ -155,7 +159,9 @@ currency_1 = tk.Entry(window)
 
 currency_label.place(x = 120, y = 100)
 currency_1.place(x = 180, y = 130)
-
-convert = ttk.Button(text = "конвертировать", command = lambda: converting(money_1, currency_1))
+result_label = tk.Label(window)
+convert = ttk.Button(text = "конвертировать", command = lambda: converting(money_1, currency_1, result_label))
 
 convert.place(x = 195, y = 160)
+
+window.mainloop()

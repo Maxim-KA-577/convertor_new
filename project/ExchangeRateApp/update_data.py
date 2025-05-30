@@ -4,7 +4,7 @@ import time
 import json
 from api import get_data
 START_YEAR = 2015
-update_time = '23:52'
+update_time = '14:01'
 current_year = 2025
 currency_data = get_data()
 
