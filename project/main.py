@@ -23,7 +23,7 @@ def converting(money_1, currency_1, result):
         answer = float(money)/cost
         answer = round(answer, 2)
 
-        resp = requests.get('http://127.0.0.1:5000/eur')
+        resp = requests.get('http://127.0.0.1:5000/usd')
         resp = resp.json()
         resp = json.loads(resp)
 
@@ -33,8 +33,6 @@ def converting(money_1, currency_1, result):
             lst2.append(float(1/i))
 
         lst1 = resp['dates']
-
-
 
         txt = "у вас получилось: " + str(answer) + " долларов"
         result.config(text=txt)
@@ -65,8 +63,6 @@ def converting(money_1, currency_1, result):
 
         lst1 = resp['dates']
 
-
-
         txt = "у вас получилось: " + str(answer) + " евро"
         result.config(text=txt)
 
@@ -85,7 +81,7 @@ def converting(money_1, currency_1, result):
         answer =float(money)/cost
         answer = round(answer, 2)
 
-        resp = requests.get('http://127.0.0.1:5000/eur')
+        resp = requests.get('http://127.0.0.1:5000/kzt')
         resp = resp.json()
         resp = json.loads(resp)
 
@@ -95,9 +91,6 @@ def converting(money_1, currency_1, result):
             lst2.append(float(1/i))
 
         lst1 = resp['dates']
-
-
-
 
         txt = "у вас получилось: " + str(answer) + " тенге"
         result.config(text=txt)
@@ -117,7 +110,7 @@ def converting(money_1, currency_1, result):
         answer = float(money)/cost
         answer = round(answer, 2)
 
-        resp = requests.get('http://127.0.0.1:5000/eur')
+        resp = requests.get('http://127.0.0.1:5000/cny')
         resp = resp.json()
         resp = json.loads(resp)
 
@@ -127,8 +120,6 @@ def converting(money_1, currency_1, result):
             lst2.append(float(1/i))
 
         lst1 = resp['dates']
-
-
 
         txt = "у вас получилось: " + str(answer) + " юаней"
         result.config(text=txt)
